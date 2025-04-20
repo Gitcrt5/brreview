@@ -106,3 +106,37 @@ class AuctionCall(Base):
     alert = Column(Boolean, default=False)
     explanation = Column(Text)
     call_order = Column(Integer)
+
+# Teams Support
+class Team(Base):
+    __tablename__ = 'teams'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    session_id = Column(Integer, ForeignKey('sessions.id'))
+
+class TeamMember(Base):
+    __tablename__ = 'team_members'
+    id = Column(Integer, primary_key=True)
+    team_id = Column(Integer, ForeignKey('teams.id'))
+    player_id = Column(Integer, ForeignKey('players.id'))
+
+class TeamResult(Base):
+    __tablename__ = 'team_results'
+    id = Column(Integer, primary_key=True)
+    team_id = Column(Integer, ForeignKey('teams.id'))
+    rank = Column(Integer)
+    category = Column(String)
+    imps = Column(Integer)
+    vps = Column(Float)
+    wdl = Column(String)
+    red_points = Column(Float)
+
+class TeamMatch(Base):
+    __tablename__ = 'team_matches'
+    id = Column(Integer, primary_key=True)
+    session_id = Column(Integer, ForeignKey('sessions.id'))
+    round_number = Column(Integer)
+    team_id = Column(Integer, ForeignKey('teams.id'))
+    opponent_id = Column(Integer, ForeignKey('teams.id'))
+    imps = Column(Integer)
+    vps = Column(Float)
