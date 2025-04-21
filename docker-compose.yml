@@ -6,7 +6,7 @@ services:
     container_name: brreview_app
     env_file: .env
     volumes:
-      - ./brreview:/app
+      - .:/app
     ports:
       - "8811:8000"
     restart: unless-stopped
